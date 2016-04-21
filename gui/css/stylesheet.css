@@ -1,0 +1,103 @@
+
+body {
+                                
+	}							
+.box{
+	position:absolute;
+	width:100%;
+	height: 100%;
+	top:0; 
+	right:0; 
+	bottom:0; 
+	left:0;
+	margin:0;
+	background-color: #808888;
+	background-position: center;
+	font-family: Georgia, Times, serif;
+	text-align: center; 
+}
+.threeD {
+    position:absolute;
+	width: 55%;
+    height: 60%;
+    border: 5px solid black;
+    display: flex;
+	align-items: center;
+	justify-content: center;
+	top: 40px;
+	left: 0px;
+	background-color: #2f2f2f;
+	text-align: center;
+	line-height: 1.4em;
+	}
+
+.control{
+	position:absolute;
+	width: 55%;
+	height: 30%;
+	display: flex;
+	top: 520px;
+	align-items: center;
+	justify-content: center;
+	border: 5px solid black;
+	background-color: #8B0000;
+	text-align: center;
+}
+
+.button{
+	background-color: #606d66;
+    border: none;
+    color: white;
+    padding: 15px 32px;
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+    margin: 4px 2px;
+    cursor: pointer;
+	border-radius: 25px;
+}
+
+.button:hover {
+    background-color: #4CAF50;	
+    color: white;
+	padding : 30px;
+	
+}
+
+
+
+.info{
+	position:absolute;
+	width: 44%;
+    height: 25%;
+    border: 5px solid black;
+    background-color: #3366cc;
+	top:40px;
+	right: 0px;
+	text-align: center;
+	/*<a href = "C:\folder_name\program.exe">*/
+}
+
+.camera{
+	position:absolute;
+	top:275px;
+	right: 0px;
+	width: 44%;
+	height: 30%;
+	border: 5px solid black;
+	/*margin: 0px auto 40px auto;*/
+	background-color: black;
+}
+
+.shell{
+	position:absolute;
+	top:580px;
+	right:0;
+	width: 44%;
+	height: 24%;
+    border: 5px solid black;
+    background-color: #660066;
+	text-align: center;
+}
+
