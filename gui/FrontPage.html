@@ -12,7 +12,7 @@
 <script type="text/javascript" language="javascript"> 
 function start(ipAddress) {
      var oShell = new ActiveXObject("wscript.shell"); 
-     oShell.Run("cmd.exe /k ipconfig" ); 				<!--Start Command line -->
+     oShell.Run("cmd.exe /k cd../muninn && node hover_in_place.js && ^C^C" ); 				<!--Start Command line -->
      
 }
 function stop(ipAddress) {
@@ -23,7 +23,7 @@ function stop(ipAddress) {
 
 function shutdown(ipAddress) {
      var oShell = new ActiveXObject("wscript.shell"); 
-     oShell.Run("cmd.exe /k ipconfig" ); 				<!--Start Command line -->
+     oShell.Run("cmd.exe /k cd../muninn && node test3.js && ^C^C" ); 				<!--Start Command line -->
      
 }
 
@@ -42,8 +42,8 @@ function shutdown(ipAddress) {
 
 	<div class = "control">
 	<a href="javascript:start('begin')"><button class="button">Start</button></a>
-	<a href="javascript:stop()"><button class="button">Return</button></a>
-	<a href="javascript:shutdown()"><button class="button">Shutdown</button></a>
+	<a href="javascript:stop('begin')"><button class="button">Return</button></a>
+	<a href="javascript:shutdown('begin')"><button class="button">Shutdown</button></a>
 	</div>
 	
 	<div class = "shell">Shell
