@@ -20,6 +20,8 @@ client.on('data', (data) => {
   console.log(data.toString());
 });
 
+//end your session and disconnect from drone's telnet session.
+
 client.on('end', () => {
   console.log('disconnected from server');
 }); 
