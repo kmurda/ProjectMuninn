@@ -33,19 +33,17 @@ FrontSensor = distance;
 //Calculate high/low for object detection
 
   //Front Sensor
-  if(frontsensor <= 10){
+  if(FrontSensor <= 10){
         front = HIGH;
-  }else
+  }else{
+            front = LOW;
+  }
 
   //Left Sensor
   if(LeftSensor <= 10){
   	left = HIGH;
   }else{
   	left = LOW;
-  }
-
-
-        front = LOW;
   }
 
   //Right Sensor
@@ -63,11 +61,11 @@ Serial.print(" - ");
 Serial.println(RightSensor);
 
 //Print to Serial enable when live testing
-Serial.print(Front:);
+Serial.print("Front:");
 Serial.println(front);
-Serial.print(Right:);
+Serial.print("Right:");
 Serial.println(right);
-Serial.print(Left:);
+Serial.print("Left:");
 Serial.println(left);
 
 }
