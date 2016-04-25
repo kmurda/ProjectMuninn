@@ -32,4 +32,10 @@ client.on('end', () => {
 	console.log('disconnected from server');
 }); 
 
+/* 
+	AR-Drone autonomous code!
+
+*/
+
+//Create an instance of the ar-drone
 
