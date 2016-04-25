@@ -39,4 +39,29 @@ client.on('end', () => {
 */
 
 //Create an instance of the ar-drone
+var arDrone = require('ar-drone');
+var control = arDrone.createUdpControl();
+
+var fly	= true;
+var emergency = true;
+
+setInterval(function(){
+	control.ref({
+		fly: fly,
+		emergency: emergency
+	});
+	control.pcmd();
+	control.flush();
+	
+},30);
+
+setInterval(function(){
+	
+}, 1000);
+
+setInterval(function(){
+	
+}, 5000);
+
+
 
