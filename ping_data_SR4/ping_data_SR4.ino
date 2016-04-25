@@ -33,21 +33,21 @@ FrontSensor = distance;
 //Calculate high/low for object detection
 
   //Front Sensor
-  if(FrontSensor <= 10){
+  if(FrontSensor <= 30){
         front = HIGH;
   }else{
             front = LOW;
   }
 
   //Left Sensor
-  if(LeftSensor <= 10){
+  if(LeftSensor <= 30){
   	left = HIGH;
   }else{
   	left = LOW;
   }
 
   //Right Sensor
-  if(RightSensor <=10){
+  if(RightSensor <= 30){
   	right = HIGH;
   }else{
   	right = LOW;
