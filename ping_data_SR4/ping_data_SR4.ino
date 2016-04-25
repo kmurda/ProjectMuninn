@@ -23,12 +23,20 @@ pinMode(echoPin3, INPUT);
 }
 
 void loop() {
+
+//Right Sensor
 SonarSensor(trigPin1, echoPin1);
 RightSensor = distance;
+
+//Left Sensor
 SonarSensor(trigPin2, echoPin2);
 LeftSensor = distance;
+
+//Front Sensor 
 SonarSensor(trigPin3, echoPin3);
 FrontSensor = distance;
+
+
 
 //Calculate high/low for object detection
 
