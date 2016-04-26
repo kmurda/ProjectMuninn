@@ -4,8 +4,18 @@
 // Engineers: Kyle Upton, Brendon Knapp and Carlton Allred
 // Obejective: Using Ultrasound sensors for collision detection
 // Mission: Drone autonomous flight using HC-SR4 sensors
+// Live video ffplay tcp://192.168.1.1:5555
 //-------------------------------------------------------------------
 
+	//Create an instance of the ar-drone
+	var arDrone = require('ar-drone');
+	var control = arDrone.createUdpControl();
+	
+	// Create an instance of the ar-drone net
+	var net = require('net');
+	
+	// Create an instance of the ar-drone navData
+	var patron = arDrone.createClient();
 
 //-------------------------------------------------------------------
 //	Global variables
@@ -20,9 +30,8 @@ var loc;
 //	between drone and arduino at 9600 baud rate
 //-------------------------------------------------------------------     
       
-var net = require('net');
-var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 
+var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 
 	//'connect' listener  
 	client.write('stty -F /dev/ttyO3\r');
@@ -30,15 +39,19 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 	client.write('stty -F /dev/ttyO3 9600\r');
 	client.write('cat /dev/ttyO3\r');
 	console.log('connected to server!');
+
+
+client.on('data', (data) => {
+	
+	//console.log(data.toString());
+	loc = data.toString();
 	
 	
-		//------------------------------------------------------------------- 
+//----------------------------------------------------------------------------------------------
+
+			//------------------------------------------------------------------- 
 		//	AR-Drone autonomous code! (start by hovering in place)
 		//-------------------------------------------------------------------
-
-		//Create an instance of the ar-drone
-		var arDrone = require('ar-drone');
-		var control = arDrone.createUdpControl();
 
 		var fly	= true;
 		var emergency = true;
@@ -56,20 +69,24 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 		//-------------------------------------------------------------------
 		//	Blank action function (autonomous)
 		//-------------------------------------------------------------------
-
-		setInterval(function(){
-			
+		
+		setInterval(function() {
+			control.ref({fly: fly, emergency: emergency});
+			control.pcmd();
+			control.flush();
 		}, 30);
 
 		setInterval(function(){
-			
+			//emergency = emergency;
+		}, 30);
+
+		setInterval(function(){
+			//fly = fly;
 		}, 30);
 
 		//-------------------------------------------------------------------
 		//	Navdata code!
 		//-------------------------------------------------------------------
-
-		var patron = arDrone.createClient();
 
 		patron.on('navdata', function(navData) {
 		  if (!navData.demo) {
@@ -84,46 +101,43 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 			//Above information will be fed to index.html for live display
 		});
 
-		if(front ===0 && right ===0 && left === 0){
+		if(loc == 000){
 			//All clear
 			
-		}else if(front == 0 && right === 0 && left === 1){
+		}else if(loc == 001){
 			//object on your left
 			
-		}else if(front == 0 && right === 1 && left === 0){
+		}else if(loc == 010){
 			//object on your right
 			
-		}else if(front == 0 && right === 1 && left === 1){
+		}else if(loc == 011){
 			//object on right and left
 			
-		}else if(front == 1 && right === 0 && left === 0){
+		}else if(loc == 100){
 			//object infront 
 			
-		}else if(front == 1 && right === 0 && left === 1){
+		}else if(loc == 101){
 			//object infont and left
 			
-		}else if(front == 1 && right === 1 && left === 0){
+		}else if(loc == 110){
 			//object infront and right
 			
-		}else if(front == 1 && right === 1 && left === 1){
+		}else if(loc == 111){
 			//object all three sides
 			
 		}else{
 			
 		}
+	
+	
+	});
 
-	
-	
-	
+
+//--------------------------------------------------------------------------------------
 });
 
 
-
-client.on('data', (data) => {
-	
-	console.log(data.toString());
-	loc = data.toString();
-});
+client.write('exit\r');
 
 client.on('end', () => {
 	console.log('disconnected from server');
