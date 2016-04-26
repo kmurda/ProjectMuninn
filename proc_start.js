@@ -7,14 +7,21 @@
 //-------------------------------------------------------------------
 
 
+//-------------------------------------------------------------------
+//	Global variables
+//-------------------------------------------------------------------
+
+var front, right, left;
+var myRegex1 = /Front:\s(\d+)/;
+var myRegex2 = /Right:\s(\d+)/;
+var myRegex3 = /Left:\s(\d+)/;
 
 //-------------------------------------------------------------------
 //	Telnet code!
 //	The script will login to the drone's shell via telnet port:23
 //	IP: 192.168.1.1 and run command script to prep serial connection
 //	between drone and arduino at 9600 baud rate
-//-------------------------------------------------------------------
-     
+//-------------------------------------------------------------------     
       
 var net = require('net');
 var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
@@ -36,8 +43,22 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 
 
 client.on('data', (data) => {
+	
 	console.log(data.toString());
+	
+	//purse the data.toString() and extract 
+	//boolean value for front, right, left
+	
+	// pursed data is assigned here
+	front = myRegex1.exec(data.toString());
+	right = myRegex2.exec(data.toString());
+	left = myRegex3.exec(data.toString());
+	
 });
+
+console.log("DEBUG::: ", front[0]);
+console.log("DEBUG::: ", right[0]);
+console.log("DEBUG::: ", left[0]);
 
 client.on('end', () => {
 	console.log('disconnected from server');
