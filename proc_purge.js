@@ -1,5 +1,4 @@
-var proc1;
-var proc2
+var front, right, left;
 
 var net = require('net');
 var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
@@ -19,8 +18,8 @@ client.on('data', (data) => {
 	
   //find staled /bin/sh process and killall
   
+  console.log(data);
   console.log(data.toString());
-  proc1 = data.toString();
   
   /*parse the data and capture what to killall */
 	// pursed data is assigned here
@@ -32,9 +31,9 @@ client.on('data', (data) => {
    
 });
 
-console.log("DEBUG::: ", front[0]);
-console.log("DEBUG::: ", right[0]);
-console.log("DEBUG::: ", left[0]);
+console.log("DEBUG::: ", front);
+console.log("DEBUG::: ", right);
+console.log("DEBUG::: ", left);
 
 client.write('exit\r');
 

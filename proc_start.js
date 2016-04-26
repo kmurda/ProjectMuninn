@@ -31,12 +31,7 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 	client.write('stty -F /dev/ttyO3\r');
 	client.write('stty -F /dev/ttyO3 -raw\r');
 	client.write('stty -F /dev/ttyO3 9600\r');
-	client.write('stty -F /dev/ttyO3 9600 -parity cs8 -cstopb\r');
 	client.write('cat /dev/ttyO3\r');
-	client.write('chmod o+rw /dev/ttyO3\r');
-	//client.write('echo -ne "991" > /dev/ttyO3\r');
-	client.write('cat send.txt > /dev/ttyO3\r');
-	//client.write('pwd\r');
 	console.log('connected to server!');
 });
 
@@ -56,9 +51,9 @@ client.on('data', (data) => {
 	
 });
 
-console.log("DEBUG::: ", front[0]);
-console.log("DEBUG::: ", right[0]);
-console.log("DEBUG::: ", left[0]);
+console.log("DEBUG::: ", front);
+console.log("DEBUG::: ", right);
+console.log("DEBUG::: ", left);
 
 client.on('end', () => {
 	console.log('disconnected from server');
@@ -115,6 +110,34 @@ patron.on('navdata', function(navData) {
 	
 	//Above information will be fed to index.html for live display
 });
+
+if(front ===0 && right ===0 && left === 0){
+	//All clear
+	
+}else if(front == 0 && right === 0 && left === 1){
+	//object on your left
+	
+}else if(front == 0 && right === 1 && left === 0){
+	//object on your right
+	
+}else if(front == 0 && right === 1 && left === 1){
+	//object on right and left
+	
+}else if(front == 1 && right === 0 && left === 0){
+	//object infront 
+	
+}else if(front == 1 && right === 0 && left === 1){
+	//object infont and left
+	
+}else if(front == 1 && right === 1 && left === 0){
+	//object infront and right
+	
+}else if(front == 1 && right === 1 && left === 1){
+	//object all three sides
+	
+}else{
+	
+}
 
 
 
