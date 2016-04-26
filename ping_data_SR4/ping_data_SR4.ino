@@ -1,9 +1,9 @@
-#define trigPin1 3
-#define echoPin1 2
-#define trigPin2 4
-#define echoPin2 5
-#define trigPin3 7
-#define echoPin3 8
+#define trigPin1 3 //Blue cable
+#define echoPin1 2 //Yellow cable
+#define trigPin2 4 //Blue cable
+#define echoPin2 5 //Yellow cable
+#define trigPin3 7 //Blue cable
+#define echoPin3 8 //Yellow cable
 
 long duration, distance, RightSensor,FrontSensor,LeftSensor;
 
