@@ -11,10 +11,7 @@
 //	Global variables
 //-------------------------------------------------------------------
 
-var front, right, left;
-var myRegex1 = /Front:\s(\d+)/;
-var myRegex2 = /Right:\s(\d+)/;
-var myRegex3 = /Left:\s(\d+)/;
+var loc;
 
 //-------------------------------------------------------------------
 //	Telnet code!
@@ -40,20 +37,8 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 client.on('data', (data) => {
 	
 	console.log(data.toString());
-	
-	//purse the data.toString() and extract 
-	//boolean value for front, right, left
-	
-	// pursed data is assigned here
-	front = myRegex1.exec(data.toString());
-	right = myRegex2.exec(data.toString());
-	left = myRegex3.exec(data.toString());
-	
+	loc = data.toString();
 });
-
-console.log("DEBUG::: ", front);
-console.log("DEBUG::: ", right);
-console.log("DEBUG::: ", left);
 
 client.on('end', () => {
 	console.log('disconnected from server');

@@ -75,9 +75,7 @@ delay(100);
 
 //Print to Serial enable when live testing
 Serial.print(front);
-Serial.print(",");
 Serial.print(right);
-Serial.print(",");
 Serial.println(left);
 
 }
