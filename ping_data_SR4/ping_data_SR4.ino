@@ -68,12 +68,13 @@ Serial.print(FrontSensor);
 Serial.print(" - ");
 Serial.println(RightSensor);
 
+delay(100);
+
 //Print to Serial enable when live testing
-Serial.print("Front: ");
-Serial.println(front);
-Serial.print("Right: ");
-Serial.println(right);
-Serial.print("Left: ");
+Serial.print(front);
+Serial.print(",");
+Serial.print(right);
+Serial.print(",");
 Serial.println(left);
 
 }
