@@ -27,15 +27,17 @@ void loop() {
 //Right Sensor
 SonarSensor(trigPin1, echoPin1);
 RightSensor = distance;
+delay(100);
 
 //Left Sensor
 SonarSensor(trigPin2, echoPin2);
 LeftSensor = distance;
+delay(100);
 
 //Front Sensor 
 SonarSensor(trigPin3, echoPin3);
 FrontSensor = distance;
-
+delay(100);
 
 
 //Calculate high/low for object detection
@@ -61,12 +63,13 @@ FrontSensor = distance;
   	right = LOW;
   }
 
-//DEBUG Section
+/*DEBUG Section
 Serial.print(LeftSensor);
 Serial.print(" - ");
 Serial.print(FrontSensor);
 Serial.print(" - ");
 Serial.println(RightSensor);
+*/
 
 delay(100);
 
