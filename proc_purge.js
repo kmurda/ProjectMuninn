@@ -23,16 +23,18 @@ client.on('data', (data) => {
   proc1 = data.toString();
   
   /*parse the data and capture what to killall */
-  
-  //proc2 = proc1 =~(/(\d+)\sroot\s+\d+\s\w\s+/bin/sh/);
-  
-  //console.log(proc2[2]);
-  
-  console.log(proc1);
+	// pursed data is assigned here
+	front = myRegex1.exec(data.toString());
+	right = myRegex2.exec(data.toString());
+	left = myRegex3.exec(data.toString());
+	
   //client.end();
-  
    
 });
+
+console.log("DEBUG::: ", front[0]);
+console.log("DEBUG::: ", right[0]);
+console.log("DEBUG::: ", left[0]);
 
 client.write('exit\r');
 
