@@ -16,9 +16,9 @@ setTimeout(function() {
 }, 1000);
 
 setTimeout(function() {
-  console.log('Turning clockwise ...');
+  console.log('Move fwd slightly ...');
 
-  pcmd.clockwise = 0.5;
+  pcmd.front = 0.3;
   
 }, 6000);
 
