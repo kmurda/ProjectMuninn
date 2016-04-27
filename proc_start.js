@@ -22,6 +22,11 @@
 //-------------------------------------------------------------------
 
 var loc;
+var date = Date.now();
+//speeds
+const MAX = 0.6;
+const MID = 0.4;
+const MIN = 0.2;
 
 //-------------------------------------------------------------------
 //	Telnet code!
@@ -49,39 +54,43 @@ client.on('data', (data) => {
 	
 //----------------------------------------------------------------------------------------------
 
-			//------------------------------------------------------------------- 
+		//------------------------------------------------------------------- 
 		//	AR-Drone autonomous code! (start by hovering in place)
 		//-------------------------------------------------------------------
 
-		var fly	= true;
+		//Check drone status before launching
+
+		var ref = {};
+		var pcmd = {};
+
 		var emergency = true;
 
 		setInterval(function(){
-			control.ref({
-				fly: fly,
-				emergency: emergency
-			});
-			control.pcmd();
-			control.flush();
-			
-		},30);
+			console.log('Takeoff...');
+			ref.emergency = true;	
+			ref.fly = true;		
+		},1000);
 
 		//-------------------------------------------------------------------
 		//	Blank action function (autonomous)
 		//-------------------------------------------------------------------
+		//	
+		// Available pcmd commands
+		// pcmd.front = 0.1 - 1.0; {back,left, right, clockwise, counterClockwise}
+		//-------------------------------------------------------------------
 		
 		setInterval(function() {
-			control.ref({fly: fly, emergency: emergency});
-			control.pcmd();
-			control.flush();
+			//control.ref({fly: fly, emergency: emergency});
+			//control.pcmd();
+			//control.flush();
 		}, 30);
 
 		setInterval(function(){
-			//emergency = emergency;
+			//enter code to execute
 		}, 30);
 
 		setInterval(function(){
-			//fly = fly;
+			//enter code to execute
 		}, 30);
 
 		//-------------------------------------------------------------------
@@ -103,24 +112,73 @@ client.on('data', (data) => {
 		});
 
 		if(loc == 000){
-			//All clear
-			console.log("No object")
-			
+			//All clear 
+			console.log("No object");
+			setInterval(function(){
+				console.log("Moving forward..");
+				pcmd.front = MIN;
+			},30);			
 		}else if(loc == 001){
 			//object on your left
-			console.log("Object on your left")
-			
+			setInterval(function(){
+				console.log("Object on your left");
+				//hover for while calculating next step
+				pcmd = {}; 
+				console.log("Detected an object on the left, calculating movement...");
+				//start turning toward right
+				console.log("Turning torwards the right...");
+				pcmd.right = MIN;
+				if(loc == 000){
+					pcmd = {};
+				}
+				pcmd.front = MIN;				
+			},30);
 		}else if(loc == 010){
 			//object on your right
-			console.log("Object on your right")
-			
+			setInterval(function(){
+				console.log("Object on your right");
+				//hover while calculating next move
+				pcmd = {};
+				console.log("Detected an object on the right, calculating next move...");
+				//start turning toward the left
+				console.log("Turning torwards the left");
+				pcmd.left = MIN;
+				if(loc == 000){
+					pcmd = {};
+				}
+				//continue fwd
+				pcmd.front = MIN;
+			},30);			
 		}else if(loc == 011){
 			//object on right and left
-			console.log("Object on your right and left")
-			
+			setInterval(function(){
+				console.log("Object on your right and left");
+				// Narrow pathway
+				console.log("Drone has detected a narrow pathway");
+				console.log("Evaluating next move...");
+				pcmd = {};
+				//drone can move left or right until oneside is cleared
+				pcmd.left = MIN;
+				if(loc == 000){
+					pcmd = {};
+				}
+				//continue forward
+				pcmd.front = MIN;
+			},30);			
 		}else if(loc == 100){
 			//object infront 
-			console.log("Object upfront")
+			setInterval(function(){
+				console.log("Object upfront")
+				//Stop/hover
+				pcmd = {};
+				//turn towards the right
+				pcmd.right = MIN;
+				if(loc == 000){
+					pcmd = {};
+				}
+				//continue fwd
+				pcmd.front = MIN;
+			},30);
 			
 		}else if(loc == 101){
 			//object infont and left
@@ -138,6 +196,15 @@ client.on('data', (data) => {
 			console.log("Check your input data")
 			
 		}
+		
+		
+		//End the sequence
+		
+		setInterval(function() {
+			control.ref(ref);
+			control.pcmd(pcmd);
+			control.flush();
+		}, 30);
 	
 	
 	});
