@@ -113,20 +113,21 @@ client.on('data', (data) => {
 
 		if(loc == 000){
 			//All clear 
-			console.log("No object");
+			console.log("No object\n");
+			pcmd = {}; //re-adjust before moving
 			setInterval(function(){
-				console.log("Moving forward..");
+				console.log("Moving forward..\n");
 				pcmd.front = MIN;
 			},30);			
 		}else if(loc == 001){
 			//object on your left
 			setInterval(function(){
-				console.log("Object on your left");
+				console.log("Object on your left\n");
 				//hover for while calculating next step
 				pcmd = {}; 
-				console.log("Detected an object on the left, calculating movement...");
+				console.log("Detected an object on the left, calculating movement...\n");
 				//start turning toward right
-				console.log("Turning torwards the right...");
+				console.log("Turning torwards the right...\n");
 				pcmd.right = MIN;
 				if(loc == 000){
 					pcmd = {};
@@ -136,12 +137,12 @@ client.on('data', (data) => {
 		}else if(loc == 010){
 			//object on your right
 			setInterval(function(){
-				console.log("Object on your right");
+				console.log("Object on your right\n");
 				//hover while calculating next move
 				pcmd = {};
-				console.log("Detected an object on the right, calculating next move...");
+				console.log("Detected an object on the right, calculating next move...\n");
 				//start turning toward the left
-				console.log("Turning torwards the left");
+				console.log("Turning torwards the left\n");
 				pcmd.left = MIN;
 				if(loc == 000){
 					pcmd = {};
@@ -152,10 +153,10 @@ client.on('data', (data) => {
 		}else if(loc == 011){
 			//object on right and left
 			setInterval(function(){
-				console.log("Object on your right and left");
+				console.log("Object on your right and left\n");
 				// Narrow pathway
-				console.log("Drone has detected a narrow pathway");
-				console.log("Evaluating next move...");
+				console.log("Drone has detected a narrow pathway\n");
+				console.log("Evaluating next move...\n");
 				pcmd = {};
 				//drone can move left or right until oneside is cleared
 				pcmd.left = MIN;
@@ -168,7 +169,7 @@ client.on('data', (data) => {
 		}else if(loc == 100){
 			//object infront 
 			setInterval(function(){
-				console.log("Object upfront")
+				console.log("Object upfront\n");
 				//Stop/hover
 				pcmd = {};
 				//turn towards the right
@@ -182,21 +183,44 @@ client.on('data', (data) => {
 			
 		}else if(loc == 101){
 			//object infont and left
-			console.log("Object on front and left")
-			
+			console.log("Object on front and left\n");
+			//stop/hover
+			pcmd = {};
+			//turn towards right until all clear
+			pcmd.right = MIN;
+			if(loc == 000){
+				pcmd = {};
+			}
+			//continue fwd
+			pcmd.front = MIN;			
 		}else if(loc == 110){
 			//object infront and right
-			console.log("Object on front and right")
-			
+			console.log("Object on front and right\n");
+			//stop/hover
+			pcmd = {};
+			//turns torwards the left
+			pcmd.left = MIN;
+			if(loc == 000){
+				pcmd = {};
+			}
+			//continue fwd
+			pcmd.front = MIN;
 		}else if(loc == 111){
 			//object all three sides
-			console.log("Object on all sides")
-			
+			console.log("Object on all sides\n");
+			//stop/hover
+			pcmd = {};
+			//turn away
+			pcmd.right = MIN;
+			if(loc == 000){
+				pcmd = {};
+			}
+			//continue fwd
+			pcmd.front = MIN;			
 		}else{
-			console.log("Check your input data")
-			
-		}
-		
+			console.log("Drone ttyO3 is not feeding any data\n");
+			console.log("Trying to get ttyO3 data...\n")
+		}		
 		
 		//End the sequence
 		
