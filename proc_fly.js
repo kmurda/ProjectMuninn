@@ -26,6 +26,7 @@ setTimeout(function() {
   console.log('Landing ...');
 
   ref.fly = false;
+  ref.emergency = false;
   pcmd = {};
 }, 8000);
 
