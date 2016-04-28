@@ -109,6 +109,15 @@ client.on('data', (data) => {
 			
 			//Above information will be fed to index.html for live display
 			
+			//Keep checking batteryPercentage
+			if(navData.demo.batteryPercentage <= 40){
+				console.log("Battery warning\n");
+			}else if(navData.demo.batteryPercentage < 30){
+				console.log("Battery critical\n");
+			}else{
+				console.log("Battery GOOD!");
+			}
+			
 		});
 
 		if(loc == 000){
