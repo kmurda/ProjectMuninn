@@ -23,10 +23,8 @@
 
 var loc;
 var date = Date.now();
-//speeds
-const MAX = 0.6;
-const MID = 0.4;
-const MIN = 0.2;
+//speed
+const SPD = 0.2;
 
 //-------------------------------------------------------------------
 //	Telnet code!
@@ -49,8 +47,7 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 client.on('data', (data) => {
 	
 	//console.log(data.toString());
-	loc = data.toString();
-	
+	loc = data.toString();	
 	
 //----------------------------------------------------------------------------------------------
 
@@ -126,7 +123,7 @@ client.on('data', (data) => {
 			pcmd = {}; //re-adjust before moving
 			setInterval(function(){
 				console.log("Moving forward..\n");
-				pcmd.front = MIN;
+				pcmd.front = SPD;
 			},30);			
 		}else if(loc == 001){
 			//object on your left
@@ -137,11 +134,11 @@ client.on('data', (data) => {
 				console.log("Detected an object on the left, calculating movement...\n");
 				//start turning toward right
 				console.log("Turning torwards the right...\n");
-				pcmd.right = MIN;
+				pcmd.right = SPD;
 				if(loc == 000){
 					pcmd = {};
 				}
-				pcmd.front = MIN;				
+				pcmd.front = SPD;				
 			},30);
 		}else if(loc == 010){
 			//object on your right
@@ -152,12 +149,12 @@ client.on('data', (data) => {
 				console.log("Detected an object on the right, calculating next move...\n");
 				//start turning toward the left
 				console.log("Turning torwards the left\n");
-				pcmd.left = MIN;
+				pcmd.left = SPD;
 				if(loc == 000){
 					pcmd = {};
 				}
 				//continue fwd
-				pcmd.front = MIN;
+				pcmd.front = SPD;
 			},30);			
 		}else if(loc == 011){
 			//object on right and left
@@ -168,12 +165,12 @@ client.on('data', (data) => {
 				console.log("Evaluating next move...\n");
 				pcmd = {};
 				//drone can move left or right until oneside is cleared
-				pcmd.left = MIN;
+				pcmd.left = SPD;
 				if(loc == 000){
 					pcmd = {};
 				}
 				//continue forward
-				pcmd.front = MIN;
+				pcmd.front = SPD;
 			},30);			
 		}else if(loc == 100){
 			//object infront 
@@ -182,12 +179,12 @@ client.on('data', (data) => {
 				//Stop/hover
 				pcmd = {};
 				//turn towards the right
-				pcmd.right = MIN;
+				pcmd.right = SPD;
 				if(loc == 000){
 					pcmd = {};
 				}
 				//continue fwd
-				pcmd.front = MIN;
+				pcmd.front = SPD;
 			},30);
 			
 		}else if(loc == 101){
@@ -196,43 +193,43 @@ client.on('data', (data) => {
 			//stop/hover
 			pcmd = {};
 			//turn towards right until all clear
-			pcmd.right = MIN;
+			pcmd.right = SPD;
 			if(loc == 000){
 				pcmd = {};
 			}
 			//continue fwd
-			pcmd.front = MIN;			
+			pcmd.front = SPD;			
 		}else if(loc == 110){
 			//object infront and right
 			console.log("Object on front and right\n");
 			//stop/hover
 			pcmd = {};
 			//turns torwards the left
-			pcmd.left = MIN;
+			pcmd.left = SPD;
 			if(loc == 000){
 				pcmd = {};
 			}
 			//continue fwd
-			pcmd.front = MIN;
+			pcmd.front = SPD;
 		}else if(loc == 111){
 			//object all three sides
 			console.log("Object on all sides\n");
 			//stop/hover
 			pcmd = {};
 			//turn away
-			pcmd.right = MIN;
+			pcmd.right = SPD;
 			if(loc == 000){
 				pcmd = {};
 			}
 			//continue fwd
-			pcmd.front = MIN;			
+			pcmd.front = SPD;			
 		}else{
 			console.log("Drone ttyO3 is not feeding any data\n");
 			console.log("Trying to get ttyO3 data...\n")
 			//Hover the drone until you start getting correct data
 			pcmd = {};
 			if(loc == 000){
-			  pcmd.front = MIN;
+			  pcmd.front = SPD;
 			}
 		}		
 		
