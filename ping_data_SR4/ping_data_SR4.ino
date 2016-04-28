@@ -1,7 +1,12 @@
+//right sensor
 #define trigPin1 3 //Blue cable
 #define echoPin1 2 //Yellow cable
+
+//left sensor
 #define trigPin2 4 //Blue cable
 #define echoPin2 5 //Yellow cable
+
+//front sensor 
 #define trigPin3 7 //Blue cable
 #define echoPin3 8 //Yellow cable
 
