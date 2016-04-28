@@ -220,6 +220,11 @@ client.on('data', (data) => {
 		}else{
 			console.log("Drone ttyO3 is not feeding any data\n");
 			console.log("Trying to get ttyO3 data...\n")
+			//Hover the drone until you start getting correct data
+			pcmd = {};
+			if(loc == 000){
+			  pcmd.front = MIN;
+			}
 		}		
 		
 		//End the sequence
