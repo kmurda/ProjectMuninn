@@ -17,23 +17,17 @@ client.write('ps | grep /bin/sh\r');
 client.on('data', (data) => {
 	
   //find staled /bin/sh process and killall
-  
-  console.log(data);
   console.log(data.toString());
   
-  /*parse the data and capture what to killall */
+  /*parse the data and capture what to killall 
 	// pursed data is assigned here
 	front = myRegex1.exec(data.toString());
 	right = myRegex2.exec(data.toString());
-	left = myRegex3.exec(data.toString());
+	left = myRegex3.exec(data.toString()); */
 	
   //client.end();
    
 });
-
-console.log("DEBUG::: ", front);
-console.log("DEBUG::: ", right);
-console.log("DEBUG::: ", left);
 
 client.write('exit\r');
 

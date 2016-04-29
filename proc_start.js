@@ -24,7 +24,7 @@
 var loc;
 var date = Date.now();
 //speed
-const SPD = 0.2;
+const SPD = 0.1;
 
 //-------------------------------------------------------------------
 //	Telnet code!
@@ -116,6 +116,7 @@ client.on('data', (data) => {
 			}
 			
 		});
+		
 
 		if(loc == 000){
 			//All clear 

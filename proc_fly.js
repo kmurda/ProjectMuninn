@@ -18,13 +18,12 @@ setTimeout(function() {
 setTimeout(function() {
   console.log('Move fwd slightly ...');
 
-  pcmd.front = 0.3;
+  pcmd.front = 0.1;
   
-}, 6000);
+}, 4000);
 
 setTimeout(function() {
   console.log('Landing ...');
-
   ref.emergency = false;
   ref.fly = false;
   pcmd = {};

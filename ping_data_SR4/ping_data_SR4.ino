@@ -1,3 +1,12 @@
+//-------------------------------------------------------------------
+// Project name: Muninn
+// Developer: Edmund Sannda
+// Engineers: Kyle Upton, Brendon Knapp and Carlton Allred
+// Obejective: Using Ultrasound sensors for collision detection
+// Mission: Drone autonomous flight using HC-SR4 sensors
+// Live video ffplay tcp://192.168.1.1:5555
+//-------------------------------------------------------------------
+
 //right sensor
 #define trigPin1 3 //Blue cable
 #define echoPin1 2 //Yellow cable
@@ -48,21 +57,21 @@ delay(100);
 //Calculate high/low for object detection
 
   //Front Sensor
-  if(FrontSensor <= 30){
+  if(FrontSensor <= 65){
         front = HIGH;
   }else{
-            front = LOW;
+        front = LOW;
   }
 
   //Left Sensor
-  if(LeftSensor <= 30){
+  if(LeftSensor <= 65){
   	left = HIGH;
   }else{
   	left = LOW;
   }
 
   //Right Sensor
-  if(RightSensor <= 30){
+  if(RightSensor <= 65){
   	right = HIGH;
   }else{
   	right = LOW;
