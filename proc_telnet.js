@@ -21,16 +21,8 @@ client.on('data', (data) => {
 	//console.log(data.toString());
 	loc = data.toString();
 	console.log(loc);
-	
-  if(loc == 100){
-	  console.log("Object infront");
-  }else if(loc == 101){
-	  console.log("Object infront and left");
-  }else if(loc == 110){
-	  console.log("Object infront and right");
-  }else{
-	  console.log("Some bits were dropped");
-  }
+	//Check another way to parse this day
+	//console.log(data.toString('hex'), data.toString(), data);
   
 });
 
