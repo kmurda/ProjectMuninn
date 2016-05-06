@@ -64,7 +64,7 @@ client.on('data', (data) => {
 
 		setInterval(function(){
 			console.log('Takeoff...');
-			ref.emergency = true;	
+			ref.emergency = false;	
 			ref.fly = true;		
 		},1000);
 
