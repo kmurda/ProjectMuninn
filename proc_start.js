@@ -53,7 +53,11 @@ client.on('data', (data) => {
 	
 	//console.log(data.toString());
 	loc = data.toString();	
-	
+	console.log(loc);	
+	});
+//--------------------------------------------------------------------------------------
+});
+
 //----------------------------------------------------------------------------------------------
 
 		//------------------------------------------------------------------- 
@@ -70,8 +74,8 @@ client.on('data', (data) => {
 		setInterval(function(){
 			console.log('Takeoff...');
 			ref.emergency = false;	
-			ref.fly = true;		
-		},1000);
+			//ref.fly = true;		
+		},30);
 
 		//-------------------------------------------------------------------
 		//	Blank action function (autonomous)
@@ -80,12 +84,12 @@ client.on('data', (data) => {
 		// Available pcmd commands
 		// pcmd.front = 0.1 - 1.0; {back,left, right, clockwise, counterClockwise}
 		//-------------------------------------------------------------------
-		
+		/*
 		setInterval(function() {
 			//control.ref({fly: fly, emergency: emergency});
 			//control.pcmd();
 			//control.flush();
-		}, 30);
+		}, 3000);
 
 		setInterval(function(){
 			//enter code to execute
@@ -94,7 +98,7 @@ client.on('data', (data) => {
 		setInterval(function(){
 			//enter code to execute
 		}, 30);
-
+		*/
 		//-------------------------------------------------------------------
 		//	Navdata code!
 		//-------------------------------------------------------------------
@@ -133,18 +137,20 @@ client.on('data', (data) => {
 			setInterval(function(){
 				console.log("Hovering..\n");
 				pcmd = {};
+				ref.fly = false;	
 			},30);	
 			
 		}else if(loc == "front" || loc == "back" || loc == "right"  || loc == "left"){
 			setInterval(function(){
 				console.log("Moving forward..\n");
-				pcmd.loc = SPD;
+				//pcmd.loc = SPD;
 			},30);	
 			
 		}else{
 			setInterval(function(){
-				console.log("Hovering..\n");
+				console.log("Hovering 2..\n");
 				pcmd = {};
+				//ref.fly = false;	
 			},30);	
 		}	
 		
@@ -155,13 +161,6 @@ client.on('data', (data) => {
 			control.pcmd(pcmd);
 			control.flush();
 		}, 30);
-	
-	
-	});
-
-
-//--------------------------------------------------------------------------------------
-});
 
 
 //client.write('exit\r');

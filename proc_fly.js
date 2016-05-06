@@ -10,7 +10,7 @@ ref.emergency = true;
 setTimeout(function() {
   console.log('Takeoff ...');
 
-  ref.emergency = true;
+  ref.emergency = false;
   ref.fly       = true;
 
 }, 1000);
@@ -20,7 +20,7 @@ setTimeout(function() {
 
   pcmd.front = 0.1;
   
-}, 4000);
+}, 6000);
 
 setTimeout(function() {
   console.log('Landing ...');
