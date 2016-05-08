@@ -136,7 +136,7 @@ delay(100);
 //Serial.println(left);
 
 //Send a specific command to the drone
-Serial.println(proc_main(FrontSensor, BackSensor, RightSensor, LeftSensor));
+proc_main(FrontSensor, BackSensor, RightSensor, LeftSensor);
 
 delay(100);
 
@@ -156,7 +156,7 @@ distance = (duration/2) / 29.1;
 
 
 // Proc function
-String proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor){
+void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor){
 
 
   //Calculate high/low for object detection
@@ -191,32 +191,32 @@ String proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSenso
 
 
   if(front == 0 && back == 0 && right == 0 && left == 0){
-        return "front";
+        Serial.println("front");
   }else if(front == 0 && back == 0 && right == 0 && left == 1){
     if(LeftSensor >= PRX){
-        return "front";
+        Serial.println("front");
       }else{
-        return "right";
+        Serial.println("right");
       }
   }else if(front == 0 && back == 0 && right == 1 && left == 0){
     if(RightSensor >= PRX){
-      return "front";  
+      Serial.println("front");  
     }else{
-      return "left";  
+      Serial.println "left";  
     }      
   }else if(front == 0 && back == 0 && right == 1 && left == 1){
     if(LeftSensor >= PRX && RightSensor >= PRX){
-        return "front";
+        Serial.println("front");
       }else if(LeftSensor < PRX && RightSensor >= PRX){
-        return "right";  
+        Serial.println("right");  
       }else if(LeftSensor >= PRX && RightSensor < PRX){
-        return "left";  
+        Serial.println("left");  
       }else{
-        return "stop";  
+        Serial.println("stop");  
       }
   }else{
 
-     return "stop";
+     Serial.println("stop");
     
   }
   /*

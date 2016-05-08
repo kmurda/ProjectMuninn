@@ -23,6 +23,8 @@ client.on('data', (data) => {
 	console.log(loc);
 	//Check another way to parse this day
 	//console.log(data.toString('hex'), data.toString(), data);
+	
+	//autocode
   
 });
 

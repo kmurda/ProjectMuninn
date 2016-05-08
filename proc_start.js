@@ -1,173 +1,161 @@
-//-------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 // Project name: Muninn
 // Developer: Edmund Sannda
 // Engineers: Kyle Upton, Brendon Knapp and Carlton Allred
 // Obejective: Using Ultrasound sensors for collision detection
 // Mission: Drone autonomous flight using HC-SR4 sensors
 // Live video ffplay tcp://192.168.1.1:5555
-//-------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
-	//Create an instance of the ar-drone
-	var arDrone = require('ar-drone');
-	var control = arDrone.createUdpControl();
-	
-	// Create an instance of the ar-drone net
-	var net = require('net');
-	
-	// Create an instance of the ar-drone navData
-	var patron = arDrone.createClient();
+//Required autobot
+var arDrone = require('ar-drone');
 
-//-------------------------------------------------------------------
+//Create an instance of the ar-drone
+var client = arDrone.createClient();
+	
+// Create an instance of the ar-drone net (for telnet access)
+var net = require('net');
+
+//---------------------------------------------------------------------------------------
 //	Global variables
-//-------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 
 var loc;
-var date = Date.now();
+
 //speed
-const SPD = 0.1;
+int const SPD = 0.03;
 var battery;
 var batteryState;
 var altitude;
 var flyState;
 
 
-//-------------------------------------------------------------------
+//---------------------------------------------------------------------------------------
 //	Telnet code!
 //	The script will login to the drone's shell via telnet port:23
 //	IP: 192.168.1.1 and run command script to prep serial connection
 //	between drone and arduino at 9600 baud rate
-//-------------------------------------------------------------------     
+//---------------------------------------------------------------------------------------     
       
 
-var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
+var sh = net.connect({port: 23, host: '192.168.1.1'}, () => {
 
 	//'connect' listener  
-	client.write('stty -F /dev/ttyO3\r');
-	client.write('stty -F /dev/ttyO3 -raw\r');
-	client.write('stty -F /dev/ttyO3 9600\r');
-	client.write('cat /dev/ttyO3\r');
+	sh.write('stty -F /dev/ttyO3\r');
+	sh.write('stty -F /dev/ttyO3 -raw\r');
+	sh.write('stty -F /dev/ttyO3 9600\r');
+	sh.write('cat /dev/ttyO3\r');
 	console.log('connected to server!');
-
-
-client.on('data', (data) => {
-	
-	//console.log(data.toString());
-	loc = data.toString();	
-	console.log(loc);	
-	});
-//--------------------------------------------------------------------------------------
 });
 
-//----------------------------------------------------------------------------------------------
+//Initial drone take off code
+//client.takeoff();
 
-		//------------------------------------------------------------------- 
-		//	AR-Drone autonomous code! (start by hovering in place)
-		//-------------------------------------------------------------------
+//--------------------------------------------------------------------------------------- 
+//	AR-Drone telnet code connects to the drone and pull sensor
+//  from arduino that are being fed to drone's ttyO3 serial line
+//---------------------------------------------------------------------------------------
 
-		//Check drone status before launching
+sh.on('data', (data) => {
+	
+	//console.log(data.toString());
+	loc = data.toString().trim();	
+	console.log(loc);  
+	/*
+		loc variable contains the following commands that are being calculated in arduino 
+		board
+		front, back, left, right, clockwise, counterclockwise, land, and stop
+	*/
+	
+});  // ends client.on data
 
-		var ref = {};
-		var pcmd = {};
+//---------------------------------------------------------------------------------------
+// Access drone instance and collect navidagtion data
+//---------------------------------------------------------------------------------------
 
-		var emergency = true;
+client.on('navdata', function(navData) {
+	if (!navData.demo) {
+		return;
+	}
 
-		setInterval(function(){
-			console.log('Takeoff...');
-			ref.emergency = false;	
-			//ref.fly = true;		
-		},30);
-
-		//-------------------------------------------------------------------
-		//	Blank action function (autonomous)
-		//-------------------------------------------------------------------
-		//	
-		// Available pcmd commands
-		// pcmd.front = 0.1 - 1.0; {back,left, right, clockwise, counterClockwise}
-		//-------------------------------------------------------------------
-		/*
-		setInterval(function() {
-			//control.ref({fly: fly, emergency: emergency});
-			//control.pcmd();
-			//control.flush();
-		}, 3000);
-
-		setInterval(function(){
-			//enter code to execute
-		}, 30);
-
-		setInterval(function(){
-			//enter code to execute
-		}, 30);
-		*/
-		//-------------------------------------------------------------------
-		//	Navdata code!
-		//-------------------------------------------------------------------
-
-		patron.on('navdata', function(navData) {
-		  if (!navData.demo) {
-			return;
-		  }
-		  
-			//console.log("Altitude    : \n", navData.demo.altitudeMeters);
-			altitude = navData.demo.altitudeMeters;
-			//console.log("Battery     : \n", navData.demo.batteryPercentage);
-			battery = navData.demo.batteryPercentage;
-			//console.log("DroneState  : \n", navData.demo.flyState);
-			flyState = navData.demo.flyState;
-			//console.log("ControlState: \n", navData.demo.controlState);
+	// Collect some navigation data & save
+	altitude = navData.demo.altitudeMeters;
+	battery = navData.demo.batteryPercentage;
+	flyState = navData.demo.flyState;
 			
-			//Above information will be fed to index.html for live display
+	//Keep checking batteryPercentage
+	if(navData.demo.batteryPercentage <= 40){
+		//console.log("Battery warning\n");
+		batteryState = "Warning!";
+	}else if(navData.demo.batteryPercentage < 30){
+		//console.log("Battery critical\n");
+		batteryState = "Critial!!!";
+		//set loc to "stop"
+		loc = "return";
+	}else{
+		//console.log("Battery GOOD!");
+		batteryState = "GOOD!";
+	} // end battery checks
 			
-			//Keep checking batteryPercentage
-			if(navData.demo.batteryPercentage <= 40){
-				//console.log("Battery warning\n");
-				batteryState = "Warning!";
-			}else if(navData.demo.batteryPercentage < 30){
-				//console.log("Battery critical\n");
-				batteryState = "Critial!!!";
-			}else{
-				//console.log("Battery GOOD!");
-				batteryState = "GOOD!";
-			}
-			
-		});
+});  // ends navdata  
+
+
+//--------------------------------------------------------------------------------------- 
+//	AR-Drone autonomous code! (start by hovering in place)
+//---------------------------------------------------------------------------------------
 		
-		//Running
-		if(loc == "stop"){
-			setInterval(function(){
-				console.log("Hovering..\n");
-				pcmd = {};
-				ref.fly = false;	
-			},30);	
-			
-		}else if(loc == "front" || loc == "back" || loc == "right"  || loc == "left"){
-			setInterval(function(){
-				console.log("Moving forward..\n");
-				//pcmd.loc = SPD;
-			},30);	
-			
-		}else{
-			setInterval(function(){
-				console.log("Hovering 2..\n");
-				pcmd = {};
-				//ref.fly = false;	
-			},30);	
-		}	
+switch(loc){
+	case "front":
+		console.log("Moving fwd!...");
+		client.front(SPD);
+	break;
+	
+	case "back":
+		console.log("Object detected behind!...");
+
+	break;
+	
+	case "left":
+		console.log("Moving left!...");
+		client.right(SPD);
+	break;
+	
+	case "right":
+		console.log("Moving right!...");
+		client.left(SPD);
+	break;
+
+	case "stop":
+		console.log("Hovering!...");
+		client.stop(); 
+	
+	break;
+	
+	case "return":
+		console.log("Battery critical\n");
+		client.stop();
 		
-		//End the sequence
-		
-		setInterval(function() {
-			control.ref(ref);
-			control.pcmd(pcmd);
-			control.flush();
-		}, 30);
+	break;
+	
+	case "land":
+		console.log("Mission complete!!");
+		client.land();
+	
+	break;
+	
+	default:
+		console.log("Waiting!...");
+		client.stop();
+	
+} // end switch
 
 
 //client.write('exit\r');
 
+// exit telnet
 client.on('end', () => {
 	console.log('disconnected from server');
-}); 
+});   
 
 
 
