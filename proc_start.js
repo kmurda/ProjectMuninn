@@ -23,7 +23,7 @@ var net = require('net');
 var loc;
 
 //speed
-int const SPD = 0.03;
+const SPD = 0.03;
 var battery;
 var batteryState;
 var altitude;
@@ -72,7 +72,7 @@ sh.on('data', (data) => {
 //---------------------------------------------------------------------------------------
 // Access drone instance and collect navidagtion data
 //---------------------------------------------------------------------------------------
-
+/*
 client.on('navdata', function(navData) {
 	if (!navData.demo) {
 		return;
@@ -98,54 +98,69 @@ client.on('navdata', function(navData) {
 	} // end battery checks
 			
 });  // ends navdata  
-
+*/
 
 //--------------------------------------------------------------------------------------- 
 //	AR-Drone autonomous code! (start by hovering in place)
 //---------------------------------------------------------------------------------------
+
+
+if(loc == "front"){
+	console.log("Moving fwd");
+}
 		
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
-		client.front(SPD);
+		//client.front(SPD);
 	break;
 	
 	case "back":
 		console.log("Object detected behind!...");
-
+		//no action, used by arduino for room measuriments 
 	break;
 	
 	case "left":
 		console.log("Moving left!...");
-		client.right(SPD);
+		//client.right(SPD);
 	break;
 	
 	case "right":
 		console.log("Moving right!...");
-		client.left(SPD);
+		//client.left(SPD);
+	break;
+	
+	case "clockwise":
+		console.log("Turning clockwise");
+		//client.clockwise(SPD);
+	break;
+	
+	case "counterclockwise":
+		console.log("Turning counterclockwise");
+		//client.counterclockwise(SPD);
 	break;
 
 	case "stop":
 		console.log("Hovering!...");
-		client.stop(); 
+		//client.stop(); 
 	
 	break;
 	
 	case "return":
 		console.log("Battery critical\n");
-		client.stop();
+		//client.stop();
 		
 	break;
 	
 	case "land":
 		console.log("Mission complete!!");
-		client.land();
+		//client.land();
 	
 	break;
 	
 	default:
 		console.log("Waiting!...");
-		client.stop();
+		//client.stop();
 	
 } // end switch
 
@@ -153,7 +168,7 @@ switch(loc){
 //client.write('exit\r');
 
 // exit telnet
-client.on('end', () => {
+sh.on('end', () => {
 	console.log('disconnected from server');
 });   
 

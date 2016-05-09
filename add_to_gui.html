@@ -1,0 +1,36 @@
+<script>
+
+// start ffplay 
+var ffplay = new Process
+    {
+        StartInfo =
+            {
+                FileName = "ffplay",
+                Arguments = "tcp://192.168.1.1:5555",
+                // hides the command window
+                CreateNoWindow = true, 
+                // redirect input, output, and error streams..
+                RedirectStandardError = true,
+                RedirectStandardOutput = true,
+                UseShellExecute = false    
+            }
+    };
+
+ffplay.EnableRaisingEvents = true;
+ffplay.OutputDataReceived += (o, e) => Debug.WriteLine(e.Data ?? "NULL", "ffplay");
+ffplay.ErrorDataReceived += (o, e) => Debug.WriteLine(e.Data ?? "NULL", "ffplay");
+ffplay.Exited += (o, e) => Debug.WriteLine("Exited", "ffplay");
+ffplay.Start();
+
+Thread.Sleep(200); // you need to wait/check the process started, then...
+
+// child, new parent
+// make 'this' the parent of ffmpeg (presuming you are in scope of a Form or Control)
+SetParent(ffplay.MainWindowHandle, this.Handle);
+
+// window, x, y, width, height, repaint
+// move the ffplayer window to the top-left corner and set the size to 320x280
+MoveWindow(ffplay.MainWindowHandle, 0, 0, 320, 280, true);
+
+
+</script>
