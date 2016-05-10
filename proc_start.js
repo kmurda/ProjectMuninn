@@ -67,7 +67,6 @@ sh.on('data', (data) => {
 		front, back, left, right, clockwise, counterclockwise, land, and stop
 	*/
 	
-});  // ends client.on data
 
 //---------------------------------------------------------------------------------------
 // Access drone instance and collect navidagtion data
@@ -105,9 +104,6 @@ client.on('navdata', function(navData) {
 //---------------------------------------------------------------------------------------
 
 
-if(loc == "front"){
-	console.log("Moving fwd");
-}
 		
 switch(loc){
 	case "front":
@@ -164,6 +160,7 @@ switch(loc){
 	
 } // end switch
 
+});  // ends client.on data
 
 //client.write('exit\r');
 
