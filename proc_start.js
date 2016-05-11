@@ -101,8 +101,9 @@ client.on('navdata', function(navData) {
 //	Log Navigation data outside navdata collection
 //---------------------------------------------------------------------------------------
 
-
-
+console.log("Battery Status: ", batteryState);
+console.log("\n");
+console.log("Altitude: ", altitude);
 
 //--------------------------------------------------------------------------------------- 
 //	AR-Drone autonomous code! (start by hovering in place)
@@ -112,8 +113,8 @@ client.on('navdata', function(navData) {
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
-		client.front(0.03);
-		client.front(SPD);
+		//client.front(0.03);
+		//client.front(SPD);
 	break;
 	
 	case "back":
@@ -122,56 +123,47 @@ switch(loc){
 	break;
 	
 	case "left":
-		console.log("Moving Right!...");
-		//client.right(SPD);
-	break;
-	
-	case "right":
 		console.log("Moving left!...");
 		//client.left(SPD);
-		console.log("Moving left!...");
-		client.right(SPD);
 	break;
 	
 	case "right":
 		console.log("Moving right!...");
-		client.left(SPD);
+		//client.right(SPD);
 	break;
 	
-	case "clkwise":
+	case "clockwise":
 		console.log("Turning clockwise");
-		client.clockwise(SPD);
+		//client.clockwise(SPD);
 	break;
 	
-	case "cntrclkwise":
+	case "counterclockwise":
 		console.log("Turning counterclockwise");
-		client.counterclockwise(SPD);
+		//client.counterclockwise(SPD);
 	break;
 
 	case "stop":
 		console.log("Hovering!...");
 		//client.stop(); 
-		//client.land();
-		client.stop(); 
-	
+		//client.land();	
 	break;
 	
 	case "return":
 		console.log("Battery critical\n");
-		client.stop();
+		//client.stop();
 		//Initiate return to origin
 		
 	break;
 	
 	case "land":
 		console.log("Mission complete!!");
-		client.land();
+		//client.land();
 	
 	break;
 	
 	default:
 		console.log("Waiting!...");
-		client.stop();
+		//client.stop();
 	
 } // end switch
 

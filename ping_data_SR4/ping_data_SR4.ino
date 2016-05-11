@@ -24,6 +24,7 @@
 #define echoPin4 9 // Yellow cable
 
 int const PRX = 45; // proximity
+int const MAX = 65; // max
 
 
 long duration, distance, RightSensor, FrontSensor, LeftSensor, BackSensor;
@@ -162,14 +163,14 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
   //Calculate high/low for object detection
 
   //Front Sensor
-  if(FrontSensor <= 65){
+  if(FrontSensor <= MAX){
         front = HIGH;
   }else{
         front = LOW;
   }
 
   //Left Sensor
-  if(LeftSensor <= 65){
+  if(LeftSensor <= MAX){
     left = HIGH;
   }else{
     left = LOW;
@@ -183,7 +184,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
   }
 
   //Back Sensor
-  if(BackSensor <= 65){
+  if(BackSensor <= MAX){
     back = HIGH;    
   }else{
     back = LOW;  
@@ -199,7 +200,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
         Serial.println("right");
       }
   }else if(front == 0 && back == 0 && right == 1 && left == 0){
-    if(RightSensor >= PRX){
+    if(RightSensor >= PRX && RightSensor <= MAX){
       Serial.println("front");  
     }else{
       Serial.println "left";  
@@ -214,25 +215,56 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
       }else{
         Serial.println("stop");  
       }
-  }else{
-
-     Serial.println("stop");
-    
-  }
-  /*
-  if(front == 0 && back == 1 && right == 0 && left == 0)
-  if(front == 0 && back == 1 && right == 0 && left == 1)
-  if(front == 0 && back == 1 && right == 1 && left == 0)
-  if(front == 0 && back == 1 && right == 1 && left == 1)
-  if(front == 1 && back == 0 && right == 0 && left == 0)
-  if(front == 1 && back == 0 && right == 0 && left == 1)
-  if(front == 1 && back == 0 && right == 1 && left == 0)
-  if(front == 1 && back == 0 && right == 1 && left == 1)
-  if(front == 1 && back == 1 && right == 0 && left == 0)
-  if(front == 1 && back == 1 && right == 0 && left == 1)
-  if(front == 1 && back == 1 && right == 1 && left == 0)
-  if(front == 1 && back == 1 && right == 1 && left == 1)
-  */
+  }else if(front == 0 && back == 1 && right == 0 && left == 0){
+	//testing
+	Serial.print("stop");  
   
+  }else if(front == 0 && back == 1 && right == 0 && left == 1){
+	//testing
+	Serial.print("stop");  		
+  
+  }else if(front == 0 && back == 1 && right == 1 && left == 0){
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 0 && back == 1 && right == 1 && left == 1){ 
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 1 && back == 0 && right == 0 && left == 0){
+	//object infront, but nothing of the side of behind
+	Serial.pring("counterclockwise");
+  
+  }else if(front == 1 && back == 0 && right == 0 && left == 1){
+  
+  }else if(front == 1 && back == 0 && right == 1 && left == 0){
+	//seeing the second wall or object
+	Serial.print("counterclockwise");  
+  
+  }else if(front == 1 && back == 0 && right == 1 && left == 1){
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 1 && back == 1 && right == 0 && left == 0){
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 1 && back == 1 && right == 0 && left == 1){
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 1 && back == 1 && right == 1 && left == 0){
+	//testing
+	Serial.print("stop");  
+  
+  }else if(front == 1 && back == 1 && right == 1 && left == 1){
+	//testing
+	Serial.print("stop");  
+  
+  }else{
+	//case we are not reading any data from the sensors
+	Serial.print("stop");  
+  
+  }  
   
 } // end proc_start() function
