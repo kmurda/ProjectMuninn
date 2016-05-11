@@ -203,7 +203,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
     if(RightSensor >= PRX && RightSensor <= MAX){
       Serial.println("front");  
     }else{
-      Serial.println "left";  
+      Serial.println("left");  
     }      
   }else if(front == 0 && back == 0 && right == 1 && left == 1){
     if(LeftSensor >= PRX && RightSensor >= PRX){
@@ -233,7 +233,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
   
   }else if(front == 1 && back == 0 && right == 0 && left == 0){
 	//object infront, but nothing of the side of behind
-	Serial.pring("counterclockwise");
+	Serial.print("counterclockwise");
   
   }else if(front == 1 && back == 0 && right == 0 && left == 1){
   
