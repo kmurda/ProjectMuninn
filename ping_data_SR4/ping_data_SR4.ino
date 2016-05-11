@@ -64,7 +64,7 @@ pinMode(echoPin4, INPUT);
 
 void loop() {
 
- //Right Sensor
+//Right Sensor
 SonarSensor(trigPin1, echoPin1);
 RightSensor = distance;
 if(flag){
