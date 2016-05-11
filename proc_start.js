@@ -66,7 +66,11 @@ sh.on('data', (data) => {
 		board
 		front, back, left, right, clockwise, counterclockwise, land, and stop
 	*/
+<<<<<<< HEAD
 
+=======
+	
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 
 //---------------------------------------------------------------------------------------
 // Access drone instance and collect navidagtion data
@@ -98,6 +102,14 @@ client.on('navdata', function(navData) {
 			
 });  // ends navdata  
 
+<<<<<<< HEAD
+=======
+//---------------------------------------------------------------------------------------
+//	Log Navigation data outside navdata collection
+//---------------------------------------------------------------------------------------
+
+
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 
 
 
@@ -105,11 +117,19 @@ client.on('navdata', function(navData) {
 //	AR-Drone autonomous code! (start by hovering in place)
 //---------------------------------------------------------------------------------------
 
+<<<<<<< HEAD
+=======
+
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 		
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
+<<<<<<< HEAD
 		client.front(0.03);
+=======
+		client.front(SPD);
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 	break;
 	
 	case "back":
@@ -118,6 +138,7 @@ switch(loc){
 	break;
 	
 	case "left":
+<<<<<<< HEAD
 		console.log("Moving Right!...");
 		//client.right(SPD);
 	break;
@@ -125,44 +146,62 @@ switch(loc){
 	case "right":
 		console.log("Moving left!...");
 		//client.left(SPD);
+=======
+		console.log("Moving left!...");
+		client.right(SPD);
 	break;
 	
-	case "clockwise":
+	case "right":
+		console.log("Moving right!...");
+		client.left(SPD);
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
+	break;
+	
+	case "clkwise":
 		console.log("Turning clockwise");
-		//client.clockwise(SPD);
+		client.clockwise(SPD);
 	break;
 	
-	case "counterclockwise":
+	case "cntrclkwise":
 		console.log("Turning counterclockwise");
-		//client.counterclockwise(SPD);
+		client.counterclockwise(SPD);
 	break;
 
 	case "stop":
 		console.log("Hovering!...");
+<<<<<<< HEAD
 		//client.stop(); 
 		//client.land();
+=======
+		client.stop(); 
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 	
 	break;
 	
 	case "return":
 		console.log("Battery critical\n");
-		//client.stop();
+		client.stop();
+		//Initiate return to origin
 		
 	break;
 	
 	case "land":
 		console.log("Mission complete!!");
-		//client.land();
+		client.land();
 	
 	break;
 	
 	default:
 		console.log("Waiting!...");
-		//client.stop();
+		client.stop();
 	
 } // end switch
 
 });  // ends client.on data
+<<<<<<< HEAD
+=======
+
+>>>>>>> 289ad04f76a9b5754fc6d1c03f5d32efe52b2637
 //client.write('exit\r');
 
 // exit telnet
