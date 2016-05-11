@@ -71,7 +71,7 @@ sh.on('data', (data) => {
 //---------------------------------------------------------------------------------------
 // Access drone instance and collect navidagtion data
 //---------------------------------------------------------------------------------------
-/*
+
 client.on('navdata', function(navData) {
 	if (!navData.demo) {
 		return;
@@ -97,7 +97,14 @@ client.on('navdata', function(navData) {
 	} // end battery checks
 			
 });  // ends navdata  
-*/
+
+//---------------------------------------------------------------------------------------
+//	Log Navigation data outside navdata collection
+//---------------------------------------------------------------------------------------
+
+
+
+
 
 //--------------------------------------------------------------------------------------- 
 //	AR-Drone autonomous code! (start by hovering in place)
@@ -108,7 +115,7 @@ client.on('navdata', function(navData) {
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
-		//client.front(SPD);
+		client.front(SPD);
 	break;
 	
 	case "back":
@@ -118,45 +125,46 @@ switch(loc){
 	
 	case "left":
 		console.log("Moving left!...");
-		//client.right(SPD);
+		client.right(SPD);
 	break;
 	
 	case "right":
 		console.log("Moving right!...");
-		//client.left(SPD);
+		client.left(SPD);
 	break;
 	
-	case "clockwise":
+	case "clkwise":
 		console.log("Turning clockwise");
-		//client.clockwise(SPD);
+		client.clockwise(SPD);
 	break;
 	
-	case "counterclockwise":
+	case "cntrclkwise":
 		console.log("Turning counterclockwise");
-		//client.counterclockwise(SPD);
+		client.counterclockwise(SPD);
 	break;
 
 	case "stop":
 		console.log("Hovering!...");
-		//client.stop(); 
+		client.stop(); 
 	
 	break;
 	
 	case "return":
 		console.log("Battery critical\n");
-		//client.stop();
+		client.stop();
+		//Initiate return to origin
 		
 	break;
 	
 	case "land":
 		console.log("Mission complete!!");
-		//client.land();
+		client.land();
 	
 	break;
 	
 	default:
 		console.log("Waiting!...");
-		//client.stop();
+		client.stop();
 	
 } // end switch
 
