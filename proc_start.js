@@ -66,18 +66,17 @@ sh.on('data', (data) => {
 		board
 		front, back, left, right, clockwise, counterclockwise, land, and stop
 	*/
-	
-});  // ends client.on data
+
 
 //---------------------------------------------------------------------------------------
 // Access drone instance and collect navidagtion data
 //---------------------------------------------------------------------------------------
-/*
+
 client.on('navdata', function(navData) {
 	if (!navData.demo) {
 		return;
 	}
-
+	
 	// Collect some navigation data & save
 	altitude = navData.demo.altitudeMeters;
 	battery = navData.demo.batteryPercentage;
@@ -98,21 +97,19 @@ client.on('navdata', function(navData) {
 	} // end battery checks
 			
 });  // ends navdata  
-*/
+
+
+
 
 //--------------------------------------------------------------------------------------- 
 //	AR-Drone autonomous code! (start by hovering in place)
 //---------------------------------------------------------------------------------------
 
-
-if(loc == "front"){
-	console.log("Moving fwd");
-}
 		
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
-		//client.front(SPD);
+		client.front(0.03);
 	break;
 	
 	case "back":
@@ -121,12 +118,12 @@ switch(loc){
 	break;
 	
 	case "left":
-		console.log("Moving left!...");
+		console.log("Moving Right!...");
 		//client.right(SPD);
 	break;
 	
 	case "right":
-		console.log("Moving right!...");
+		console.log("Moving left!...");
 		//client.left(SPD);
 	break;
 	
@@ -143,6 +140,7 @@ switch(loc){
 	case "stop":
 		console.log("Hovering!...");
 		//client.stop(); 
+		//client.land();
 	
 	break;
 	
@@ -164,7 +162,7 @@ switch(loc){
 	
 } // end switch
 
-
+});  // ends client.on data
 //client.write('exit\r');
 
 // exit telnet
