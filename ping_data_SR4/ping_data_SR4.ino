@@ -177,7 +177,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
   }
 
   //Right Sensor
-  if(RightSensor <= 65){
+  if(RightSensor <= MAX){
     right = HIGH;
   }else{
     right = LOW;
