@@ -193,77 +193,100 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
 
   if(front == 0 && back == 0 && right == 0 && left == 0){
         Serial.println("front");
+        delay(500);
   }else if(front == 0 && back == 0 && right == 0 && left == 1){
     if(LeftSensor >= PRX){
         Serial.println("front");
+        delay(500);
       }else{
         Serial.println("right");
+        delay(500);
       }
   }else if(front == 0 && back == 0 && right == 1 && left == 0){
     if(RightSensor >= PRX && RightSensor <= MAX){
       Serial.println("front");  
+      delay(500);
     }else{
-      Serial.println("left");  
+      Serial.println("left"); 
+      delay(500); 
     }      
   }else if(front == 0 && back == 0 && right == 1 && left == 1){
     if(LeftSensor >= PRX && RightSensor >= PRX){
         Serial.println("front");
+        delay(500);
       }else if(LeftSensor < PRX && RightSensor >= PRX){
         Serial.println("right");  
+        delay(500);
       }else if(LeftSensor >= PRX && RightSensor < PRX){
         Serial.println("left");  
+        delay(500);
       }else{
         Serial.println("stop");  
+        delay(500);
       }
   }else if(front == 0 && back == 1 && right == 0 && left == 0){
 	//testing
-	Serial.print("stop");  
+	Serial.print("land");  
+  delay(500);
   
   }else if(front == 0 && back == 1 && right == 0 && left == 1){
 	//testing
-	Serial.print("stop");  		
+	Serial.print("stop");  	
+  delay(500);	
   
   }else if(front == 0 && back == 1 && right == 1 && left == 0){
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else if(front == 0 && back == 1 && right == 1 && left == 1){ 
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else if(front == 1 && back == 0 && right == 0 && left == 0){
 	//object infront, but nothing of the side of behind
 	Serial.print("counterclockwise");
+  delay(500);
   
   }else if(front == 1 && back == 0 && right == 0 && left == 1){
+  //object infront and on the left
+  Serial.print("stop");  
   
   }else if(front == 1 && back == 0 && right == 1 && left == 0){
 	//seeing the second wall or object
 	Serial.print("counterclockwise");  
+  delay(500);
   
   }else if(front == 1 && back == 0 && right == 1 && left == 1){
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else if(front == 1 && back == 1 && right == 0 && left == 0){
 	//testing
 	Serial.print("land");  
+  delay(500);
   
   }else if(front == 1 && back == 1 && right == 0 && left == 1){
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else if(front == 1 && back == 1 && right == 1 && left == 0){
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else if(front == 1 && back == 1 && right == 1 && left == 1){
 	//testing
 	Serial.print("stop");  
+  delay(500);
   
   }else{
 	//case we are not reading any data from the sensors
 	Serial.print("stop");  
+  delay(500);
   
   }  
   

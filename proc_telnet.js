@@ -19,13 +19,8 @@ var client = net.connect({port: 23, host: '192.168.1.1'}, () => {
 client.on('data', (data) => {
 	
 	//console.log(data.toString());
-	loc = data.toString();
-	console.log(loc);
-	//Check another way to parse this day
-	//console.log(data.toString('hex'), data.toString(), data);
-	
-	//autocode
-  
+	loc = data.toString().trim();	
+	console.log(data.toString().trim());
 });
 
   //console.log("\n\n");

@@ -23,7 +23,7 @@ var net = require('net');
 var loc;
 
 //speed
-const SPD = 0.001;
+const SPD = 0.1;
 var battery;
 var batteryState;
 var altitude;
@@ -89,7 +89,7 @@ client.on('navdata', function(navData) {
 		//console.log("Battery critical\n");
 		batteryState = "Critial!!!";
 		//set loc to "stop"
-		loc = "return";
+		loc = "land";
 	}else{
 		//console.log("Battery GOOD!");
 		batteryState = "GOOD!";
@@ -113,7 +113,7 @@ console.log("Altitude: ", altitude);
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
-		//client.front(SPD);
+		client.front(SPD);
 	break;
 	
 	case "back":
@@ -138,7 +138,7 @@ switch(loc){
 	
 	case "counterclockwise":
 		console.log("Turning counterclockwise");
-		client.counterclockwise(SPD);
+		client.counterClockwise(SPD);
 	break;
 
 	case "stop":
@@ -165,7 +165,7 @@ switch(loc){
 		console.log("Waiting!...");
 		client.stop();
 	
-} // end switch
+} // end switch  
 
 });  // ends client.on data
 
