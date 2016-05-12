@@ -24,7 +24,7 @@
 #define echoPin4 9 // Yellow cable
 
 int const PRX = 45; // proximity
-int const MAX = 65; // max
+int const MAX = 85; // max
 
 
 long duration, distance, RightSensor, FrontSensor, LeftSensor, BackSensor;
@@ -247,7 +247,7 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
   
   }else if(front == 1 && back == 1 && right == 0 && left == 0){
 	//testing
-	Serial.print("stop");  
+	Serial.print("land");  
   
   }else if(front == 1 && back == 1 && right == 0 && left == 1){
 	//testing
