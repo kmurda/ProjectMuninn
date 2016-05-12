@@ -24,7 +24,7 @@
 #define echoPin4 9 // Yellow cable
 
 int const PRX = 45; // proximity
-int const MAX = 85; // max
+int const MAX = 125; // max
 
 
 long duration, distance, RightSensor, FrontSensor, LeftSensor, BackSensor;
