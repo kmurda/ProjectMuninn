@@ -23,13 +23,22 @@ var net = require('net');
 var loc;
 
 //speed
-const SPD = 0.1;
+const SPD = 0.05;
 var battery;
 var batteryState;
 var altitude;
 var flyState;
 
-
+//run once controls
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;
+	stop_flag = true;
+	land_flag = true;
+	cc_flag = true;
+	c_flag = true;	
+	
 //---------------------------------------------------------------------------------------
 //	Telnet code!
 //	The script will login to the drone's shell via telnet port:23
@@ -109,7 +118,7 @@ console.log("Altitude: ", altitude);
 //	AR-Drone autonomous code! (start by hovering in place)
 //---------------------------------------------------------------------------------------
 
-		
+/*		
 switch(loc){
 	case "front":
 		console.log("Moving fwd!...");
@@ -166,6 +175,143 @@ switch(loc){
 		client.stop();
 	
 } // end switch  
+*/
+// replace the switch statement with if that will only
+// run same command once
+
+if(loc == "front" && front_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.front(0.05);
+	console.log("Executing!!");
+	//run once control
+	front_flag = false;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;	
+	stop_flag = true;
+	land_flag = true;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "right" && right_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.right(0.05);	
+	console.log("Executing!!");
+	//run once control
+	front_flag = true;
+	right_flag = false;
+	left_flag = true;
+	back_flag = true;	
+	stop_flag = true;
+	land_flag = true;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "left" && left_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.left(0.05);
+	console.log("Executing!!");
+	//run once control
+	front_flag = true;
+	right_flag = true;
+	left_flag = false;
+	back_flag = true;
+	stop_flag = true;
+	land_flag = true;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "back" && back_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.back(0.05);
+	console.log("Executing!!");
+	//run once control
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = false;
+	stop_flag = true;
+	land_flag = true;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "land" && land_flag == true){
+	
+	//drone command 
+	client.stop();
+	setTimeout(function(){},500);
+	client.land();
+	console.log("Executing!!");
+	// run once control
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;
+	stop_flag = true;
+	land_flag = false;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "stop" && stop_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	console.log("Executing!!");
+	//run once control
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;
+	stop_flag = false;
+	cc_flag = true;
+	c_flag = true;	
+	
+}else if(loc == "counterclockwise" && cc_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.clockwise(0.05);
+	console.log("Executing!!");
+	//run once control
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;
+	stop_flag = true;
+	cc_flag = false;
+	c_flag = true;	
+	
+}else if(loc == "clockwise" && c_flag == true){
+	
+	//drone command
+	client.stop();
+	setTimeout(function(){},500);
+	client.clockwise(0.05);
+	console.log("Executing!!");
+	//run once command
+	front_flag = true;
+	right_flag = true;
+	left_flag = true;
+	back_flag = true;
+	stop_flag = true;
+	cc_flag = true;
+	c_flag = false;		
+	
+}
 
 });  // ends client.on data
 

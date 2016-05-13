@@ -24,7 +24,7 @@
 #define echoPin4 9 // Yellow cable
 
 int const PRX = 45; // proximity
-int const MAX = 125; // max
+int const MAX = 100; // max
 
 
 long duration, distance, RightSensor, FrontSensor, LeftSensor, BackSensor;
@@ -195,115 +195,39 @@ void proc_main(int FrontSensor, int BackSensor, int RightSensor, int LeftSensor)
         Serial.println("front");
         delay(500);
   }else if(front == 0 && back == 0 && right == 0 && left == 1){
-    if(LeftSensor >= PRX){
-        Serial.println("front");
-        delay(500);
-      }else{
         Serial.println("right");
         delay(500);
-      }
+      
   }else if(front == 0 && back == 0 && right == 1 && left == 0){
-    if(RightSensor >= PRX && RightSensor <= MAX){
-      Serial.println("front");  
-      delay(500);
-    }else{
       Serial.println("left"); 
-      delay(500); 
-    }      
+      delay(500);      
   }else if(front == 0 && back == 0 && right == 1 && left == 1){
-    if(LeftSensor >= PRX && RightSensor >= PRX){
         Serial.println("front");
         delay(500);
-      }else if(LeftSensor < PRX && RightSensor >= PRX){
-        Serial.println("right");  
-        delay(500);
-      }else if(LeftSensor >= PRX && RightSensor < PRX){
-        Serial.println("left");  
-        delay(500);
-      }else{
-        Serial.println("stop");  
-        delay(500);
-      }
   }else if(front == 0 && back == 1 && right == 0 && left == 0){	  
 	  Serial.print("front");  
     delay(500);  
   }else if(front == 0 && back == 1 && right == 0 && left == 1){
-
-   if(LeftSensor < PRX && BackSensor >= PRX){
-      Serial.print("right");
-      delay(500);  
-    }else if(LeftSensor >= PRX && BackSensor < PRX){
-      Serial.print("front");  
-      delay(500);  
-    }else{
-      //both sensor are > PRX
       Serial.print("clockwise");
-      delay(500);  
-    }
-  
+      delay(500);    
   }else if(front == 0 && back == 1 && right == 1 && left == 0){
-
-    if(RightSensor < PRX && BackSensor >= PRX){
-      Serial.print("left");
-      delay(500);    
-    }else if(RightSensor >= PRX && BackSensor < PRX){
-      Serial.print("front"); 
+      Serial.print("front");
       delay(500);   
-    }else{
-      //both sensor are > PRX
-      Serial.print("front");
-      delay(500);  
-    }
-  
   }else if(front == 0 && back == 1 && right == 1 && left == 1){ 
-
-    if(RightSensor < PRX && LeftSensor < PRX && BackSensor < PRX){
       Serial.print("land"); 
-      delay(500);    
-    }else if(RightSensor < PRX && LeftSensor >= PRX && BackSensor >= PRX){
-      Serial.print("left");
-      delay(500);    
-    }else if(RightSensor >= PRX && LeftSensor < PRX && BackSensor >= PRX){
-      Serial.print("right");
-      delay(500);    
-    }else if(RightSensor >= PRX && LeftSensor >= PRX && BackSensor < PRX){
-      Serial.print("front");
-      delay(500);    
-    }else{
-      //all 3 greater than PRX
-      Serial.print("front");
-      delay(500);        
-    }
- 
+      delay(500);     
   }else if(front == 1 && back == 0 && right == 0 && left == 0){
-	//object infront, but nothing of the side of behind
-	Serial.print("counterclockwise");
-  delay(500);
-  
+	  //object infront, but nothing of the side of behind
+	  Serial.print("counterclockwise");
+    delay(500);  
   }else if(front == 1 && back == 0 && right == 0 && left == 1){
   //object infront and on the left
-    if(FrontSensor < PRX && LeftSensor >= PRX){
-      Serial.print("back");
-      delay(500);    
-    }else if(FrontSensor >= PRX && LeftSensor < PRX){
-      Serial.print("right");
-      delay(500);    
-    }else{
-      //both front and left are > PRX
       Serial.print("counterclockwise");
-      delay(500);  
-    } 
-  
+      delay(500);   
   }else if(front == 1 && back == 0 && right == 1 && left == 0){
 	//seeing the second wall or object
-    if(RightSensor < PRX && FrontSensor >= PRX){
-      Serial.print("left");
-      delay(500);  
-    }else{
 	    Serial.print("counterclockwise");  
-      delay(500);
-    }
-    
+      delay(500);    
   }else if(front == 1 && back == 0 && right == 1 && left == 1){
 	  //Weird situation... land the drone
 	  Serial.print("land");  
